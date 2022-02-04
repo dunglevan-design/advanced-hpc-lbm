@@ -1,0 +1,21 @@
+Enabling gprof. Profile.txt
+changing compiler options:
+   style of compiler, compiler options, versions, optimisation flags https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html
+
+Check assembly ouput: godbolt.org, https://lotsofcores.com
+
+BC4: specs: https://www.cpu-world.com/CPUs/Xeon/Intel-Xeon%20E5-2680%20v4.html  
+Cache: 
+   reduce data movement
+   associativity lower cache misses :https://courses.cs.washington.edu/courses/cse378/09wi/lectures/lec15.pdf
+   Spatial locality: instructions close to each other likely to reuse: predicts that access to an address 
+will be followed by an access to a nearby address.
+   Temporal locailty: data resuse in blocks
+   Techinques: 
+ 	Loop Tiling:strip-mine inner loop: break inner loop access into blocks, permute 
+ the outer with the inner loop so that we hit the same elements many times before its discarded from the cache. improving temporal locality.
+	Automatic Vectorization. Handled by VPU. Cant happen if vector dependence: true dependence or pointer disambiguation. Although you can
+specify in the code to ignore pointer disambiguation and enable vectorization. insert #pragma ivdep or add restrict in pointer declaration and 
+compile with -restrict.	No alias. SimD enabled functions. Look at vectorization report..
+   
+   
