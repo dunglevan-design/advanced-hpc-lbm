@@ -17,5 +17,6 @@ will be followed by an access to a nearby address.
 	Automatic Vectorization. Handled by VPU. Cant happen if vector dependence: true dependence or pointer disambiguation. Although you can
 specify in the code to ignore pointer disambiguation and enable vectorization. insert #pragma ivdep or add restrict in pointer declaration and 
 compile with -restrict.	No alias. SimD enabled functions. Look at vectorization report..
-   
+
+Profile Profile Profile: Use python scripts. 
    
