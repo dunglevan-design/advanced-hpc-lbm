@@ -1,6 +1,7 @@
 # Makefile
 
 EXE=d2q9-bgk
+NEW=d2q9-bgknew
 
 CC=gcc
 CFLAGS= -std=c99 -Wall -pg -Ofast -march='native'
@@ -13,7 +14,7 @@ REF_AV_VELS_FILE=check/128x128.av_vels.dat
 
 all: $(EXE)
 
-$(EXE): $(EXE).c
+$(EXE): $(NEW).c
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
 
 check:

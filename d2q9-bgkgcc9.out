@@ -1,0 +1,23 @@
+Running on host compute100.bc4.acrc.priv
+Time is Wed Feb 16 10:27:27 GMT 2022
+Directory is /user/home/kp19251/advanced-hpc-lbm
+Slurm job ID is 10044798
+This job runs on the following machines:
+compute100
+==done==
+Reynolds number:		9.758120536804E+00
+Elapsed Init time:			0.001193 (s)
+Elapsed Compute time:			19.207488 (s)
+Elapsed Collate time:			0.000000 (s)
+Elapsed Total time:			19.208681 (s)
+
+ Performance counter stats for './d2q9-bgk input_128x128.params obstacles_128x128.dat':
+
+               354      cache-misses:u                                              
+
+      19.255478787 seconds time elapsed
+
+      19.241863000 seconds user
+       0.005000000 seconds sys
+
+
