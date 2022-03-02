@@ -1,0 +1,1326 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Intel(R) C Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 18.0.3.222 Build 20180410
+
+Compiler options: -std=c99 -Wall -O3 -xHost -g -qopt-report=5 -restrict -qopenmp -no-prec-sqrt -u__poll -udlclose -udlopen -lm -o d2q9-bgk
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: true
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: main(int, char **)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (main(int, char **)) [1/11=9.1%] d2q9-bgknew.c(120,1)
+  -> INLINE: (134,5) usage(const char *) (isz = 6) (sz = 10)
+    -> EXTERN: (706,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (707,3) exit(int)
+  -> EXTERN: (143,3) gettimeofday(struct timeval *__restrict__, __timezone_ptr_t)
+  -> (146,3) initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, float **) (isz = 699) (sz = 718)
+     [[ Inlining would exceed -inline-max-size value (718>253) <1>]]
+  -> EXTERN: (149,3) gettimeofday(struct timeval *__restrict__, __timezone_ptr_t)
+  -> (156,19) timestep(const t_param, t_speed *__restrict__, t_speed *__restrict__, int *) (isz = 865) (sz = 878)
+     [[ Inlining would exceed -inline-max-size value (878>253) <1>]]
+  -> EXTERN: (169,3) gettimeofday(struct timeval *__restrict__, __timezone_ptr_t)
+  -> EXTERN: (176,3) gettimeofday(struct timeval *__restrict__, __timezone_ptr_t)
+  -> EXTERN: (181,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (182,3) printf(const char *__restrict__, ...)
+  -> INLINE: (182,41) calc_reynolds(const t_param, t_speed *, int *) (isz = 158) (sz = 169)
+    -> INLINE: (604,10) av_velocity(const t_param, t_speed *, int *) (isz = 150) (sz = 161)
+  -> EXTERN: (183,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (184,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (185,3) printf(const char *__restrict__, ...)
+  -> EXTERN: (186,3) printf(const char *__restrict__, ...)
+  -> (187,3) write_values(const t_param, t_speed *, int *, float *) (isz = 261) (sz = 274)
+     [[ Inlining would exceed -inline-max-size value (274>253) <1>]]
+  -> INLINE: (188,3) finalise(const t_param *, t_speed **, t_speed **, int **, float **) (isz = 14) (sz = 29)
+    -> EXTERN: (585,3) free(void *)
+    -> EXTERN: (588,3) free(void *)
+    -> EXTERN: (591,3) free(void *)
+    -> EXTERN: (594,3) free(void *)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at d2q9-bgknew.c(153,3)
+   remark #15382: vectorization support: call to function timestep(const t_param, t_speed *__restrict__, t_speed *__restrict__, int *) cannot be vectorized   [ d2q9-bgknew.c(156,19) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(379,3) inlined into d2q9-bgknew.c(182,41)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgknew.c(381,5) inlined into d2q9-bgknew.c(182,41)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at d2q9-bgknew.c(389,9) inlined into d2q9-bgknew.c(182,41)
+         remark #15389: vectorization support: reference cells->speeds[ii+jj*params.nx][kk] has unaligned access   [ d2q9-bgknew.c(391,28) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 4
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 1.833
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 5 
+         remark #15477: vector cost: 1.500 
+         remark #15478: estimated potential speedup: 1.150 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=1
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgknew.c(389,9) inlined into d2q9-bgknew.c(182,41)
+      <Remainder loop for vectorization>
+         remark #25436: completely unrolled by 1  
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(156,19):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (1, 0)
+d2q9-bgknew.c(182,41):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (16, 0)
+d2q9-bgknew.c(187,3):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (16, 0), and destination (alignment, offset): (1, 0)
+d2q9-bgknew.c(120,1):remark #34051: REGISTER ALLOCATION : [main] d2q9-bgknew.c:120
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   30[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm15]
+        
+    Routine temporaries
+        Total         :     183
+            Global    :      40
+            Local     :     143
+        Regenerable   :      54
+        Spilled       :      10
+        
+    Routine stack
+        Variables     :     108 bytes*
+            Reads     :      35 [4.46e+01 ~ 4.9%]
+            Writes    :      15 [2.10e+01 ~ 2.3%]
+        Spills        :      40 bytes*
+            Reads     :       9 [1.30e+01 ~ 1.4%]
+            Writes    :       5 [4.90e+00 ~ 0.5%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: timestep(const t_param, t_speed *__restrict__, t_speed *__restrict__, int *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (timestep(const t_param, t_speed *__restrict__, t_speed *__restrict__, int *)) [2/11=18.2%] d2q9-bgknew.c(224,1)
+  -> INLINE: (227,3) accelerate_flow(const t_param, t_speed *__restrict__, int *__restrict__) (isz = 136) (sz = 147)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at d2q9-bgknew.c(203,3) inlined into d2q9-bgknew.c(227,3)
+<Peeled loop for vectorization>
+   remark #25015: Estimate of max trip count of loop=15
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(203,3) inlined into d2q9-bgknew.c(227,3)
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(207,45) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(207,98) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(207,151) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(210,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(210,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(211,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(211,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(212,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(212,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(214,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(214,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(215,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(215,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(216,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(216,7) ]
+   remark #15305: vectorization support: vector length 16
+   remark #15309: vectorization support: normalized vectorization overhead 0.038
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15452: unmasked strided loads: 9 
+   remark #15453: unmasked strided stores: 6 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 19 
+   remark #15477: vector cost: 46.120 
+   remark #15478: estimated potential speedup: 0.420 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(203,3) inlined into d2q9-bgknew.c(227,3)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(239,5)
+   remark #25261: Invariant Condition eliminated(Proven True) at line 248
+   remark #25258: Invariant Condition eliminated(Loop at level 1 peeled) at line 249 
+   remark #25260: Invariant Condition eliminated(Proven False) at line 249
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][0]>, stride is 9   [ d2q9-bgknew.c(254,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][0]>, stride is 9   [ d2q9-bgknew.c(254,50) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(255,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[x_w+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(255,50) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(256,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+y_s*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(256,50) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(257,7) ]
+   remark #15415: vectorization support: irregularly indexed load was generated for the variable <cells->speeds[x_e+jj*params.nx][3]>, 64-bit indexed, part of index is nonlinearly computed   [ d2q9-bgknew.c(257,50) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(258,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+y_n*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(258,50) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(259,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[x_w+y_s*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(259,50) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(260,7) ]
+   remark #15415: vectorization support: irregularly indexed load was generated for the variable <cells->speeds[x_e+y_s*params.nx][6]>, 64-bit indexed, part of index is nonlinearly computed   [ d2q9-bgknew.c(260,50) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(261,7) ]
+   remark #15415: vectorization support: irregularly indexed load was generated for the variable <cells->speeds[x_e+y_n*params.nx][7]>, 64-bit indexed, part of index is nonlinearly computed   [ d2q9-bgknew.c(261,50) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(262,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[x_w+y_n*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(262,50) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(271,22) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(272,22) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(273,22) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(274,22) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(276,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(276,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(276,52) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(277,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(277,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(277,52) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(278,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(278,9) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(279,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(279,9) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(280,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(280,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(280,52) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(281,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(281,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(281,52) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(282,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(282,9) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(283,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(283,9) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(306,22) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(306,65) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(306,108) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(306,152) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(306,195) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(306,238) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(308,22) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(308,65) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(308,108) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(308,152) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(308,195) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(308,238) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(354,25) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(354,68) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(354,111) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(354,155) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(354,198) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(354,241) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(356,25) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(356,68) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(356,111) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(356,155) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(356,198) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(356,241) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15309: vectorization support: normalized vectorization overhead 0.045
+   remark #26012: vectorization support: data layout of a private variable d_equ was optimized, converted to SoA
+   remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15452: unmasked strided loads: 73 
+   remark #15453: unmasked strided stores: 26 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 795 
+   remark #15477: vector cost: 511.370 
+   remark #15478: estimated potential speedup: 1.540 
+   remark #15482: vectorized math library calls: 1 
+   remark #15486: divides: 29 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(239,5)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(236,3)
+   remark #25261: Invariant Condition eliminated(Proven True) at line 249
+   remark #15316: simd loop was not vectorized: scalar assignment in simd loop is prohibited, consider private, lastprivate or reduction clauses   [ d2q9-bgknew.c(327,9) ]
+   remark #15552: loop was not vectorized with "simd"
+   remark #15450: unmasked unaligned unit stride loads: 1 
+   remark #15452: unmasked strided loads: 73 
+   remark #15453: unmasked strided stores: 26 
+   remark #15462: unmasked indexed (or gather) loads: 3 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 795 
+   remark #15477: vector cost: 511.370 
+   remark #15478: estimated potential speedup: 1.540 
+   remark #15482: vectorized math library calls: 1 
+   remark #15486: divides: 29 
+   remark #15488: --- end vector cost summary ---
+
+   LOOP BEGIN at d2q9-bgknew.c(239,5)
+      remark #25258: Invariant Condition eliminated(Loop at level 1 peeled) at line 248 
+      remark #25260: Invariant Condition eliminated(Proven False) at line 248
+      remark #25258: Invariant Condition eliminated(Loop at level 2 peeled) at line 249 
+      remark #25260: Invariant Condition eliminated(Proven False) at line 249
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][0]>, stride is 9   [ d2q9-bgknew.c(254,7) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][0]>, stride is 9   [ d2q9-bgknew.c(254,50) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(255,7) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[x_w+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(255,50) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(256,7) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+y_s*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(256,50) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(257,7) ]
+      remark #15415: vectorization support: irregularly indexed load was generated for the variable <cells->speeds[x_e+jj*params.nx][3]>, 64-bit indexed, part of index is nonlinearly computed   [ d2q9-bgknew.c(257,50) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(258,7) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+y_n*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(258,50) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(259,7) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[x_w+y_s*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(259,50) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(260,7) ]
+      remark #15415: vectorization support: irregularly indexed load was generated for the variable <cells->speeds[x_e+y_s*params.nx][6]>, 64-bit indexed, part of index is nonlinearly computed   [ d2q9-bgknew.c(260,50) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(261,7) ]
+      remark #15415: vectorization support: irregularly indexed load was generated for the variable <cells->speeds[x_e+y_n*params.nx][7]>, 64-bit indexed, part of index is nonlinearly computed   [ d2q9-bgknew.c(261,50) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(262,7) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[x_w+y_n*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(262,50) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(271,22) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(272,22) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(273,22) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(274,22) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(276,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(276,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(276,52) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(277,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(277,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(277,52) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(278,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(278,9) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(279,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(279,9) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(280,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(280,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(280,52) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(281,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(281,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(281,52) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(282,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(282,9) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(283,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(283,9) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(302,28) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(306,22) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(306,65) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(306,108) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(306,152) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(306,195) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(306,238) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(308,22) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(308,65) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(308,108) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(308,152) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(308,195) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(308,238) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,11) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,55) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][kk]>, stride is 9   [ d2q9-bgknew.c(345,127) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(354,25) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(354,68) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(354,111) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(354,155) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(354,198) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(354,241) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][2]>, stride is 9   [ d2q9-bgknew.c(356,25) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(356,68) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(356,111) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][4]>, stride is 9   [ d2q9-bgknew.c(356,155) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(356,198) ]
+      remark #15415: vectorization support: non-unit strided load was generated for the variable <tmp_cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(356,241) ]
+      remark #15305: vectorization support: vector length 8
+      remark #15309: vectorization support: normalized vectorization overhead 0.045
+      remark #26012: vectorization support: data layout of a private variable d_equ was optimized, converted to SoA
+      remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15452: unmasked strided loads: 73 
+      remark #15453: unmasked strided stores: 26 
+      remark #15462: unmasked indexed (or gather) loads: 3 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 795 
+      remark #15477: vector cost: 511.370 
+      remark #15478: estimated potential speedup: 1.540 
+      remark #15482: vectorized math library calls: 1 
+      remark #15486: divides: 29 
+      remark #15488: --- end vector cost summary ---
+
+      LOOP BEGIN at d2q9-bgknew.c(300,9)
+         remark #25436: completely unrolled by 9   (pre-vector) 
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgknew.c(343,9)
+         remark #25436: completely unrolled by 9   (pre-vector) 
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(239,5)
+   <Remainder loop for vectorization>
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(254,50):remark #34069: adjacent sparse (strided) loads seem unprofitable to optimize. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000101 }.
+d2q9-bgknew.c(256,50):remark #34069: adjacent sparse (strided) loads seem unprofitable to optimize. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000041 }.
+d2q9-bgknew.c(258,50):remark #34069: adjacent sparse (strided) loads seem unprofitable to optimize. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000021 }.
+d2q9-bgknew.c(345,11):remark #34034: adjacent sparse (strided) stores optimized for speed. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x0000000FF }.
+d2q9-bgknew.c(283,9):remark #34034: adjacent sparse (strided) stores optimized for speed. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x0000000FF }.
+d2q9-bgknew.c(254,50):remark #34069: adjacent sparse (strided) loads seem unprofitable to optimize. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000101 }.
+d2q9-bgknew.c(256,50):remark #34069: adjacent sparse (strided) loads seem unprofitable to optimize. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000041 }.
+d2q9-bgknew.c(258,50):remark #34069: adjacent sparse (strided) loads seem unprofitable to optimize. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x000000021 }.
+d2q9-bgknew.c(345,11):remark #34034: adjacent sparse (strided) stores optimized for speed. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x0000000FF }.
+d2q9-bgknew.c(283,9):remark #34034: adjacent sparse (strided) stores optimized for speed. Details: stride { 36 }, types { F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256, F32-V256 }, number of elements { 8 }, select mask { 0x0000000FF }.
+d2q9-bgknew.c(224,1):remark #34051: REGISTER ALLOCATION : [timestep] d2q9-bgknew.c:224
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   30[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm15]
+        
+    Routine temporaries
+        Total         :    1746
+            Global    :     241
+            Local     :    1505
+        Regenerable   :     133
+        Spilled       :     121
+        
+    Routine stack
+        Variables     :     576 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :    2200 bytes*
+            Reads     :     171 [3.30e+03 ~ 5.5%]
+            Writes    :     147 [2.58e+03 ~ 4.3%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: write_values(const t_param, t_speed *, int *, float *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (write_values(const t_param, t_speed *, int *, float *)) [3/11=27.3%] d2q9-bgknew.c(626,1)
+  -> EXTERN: (635,8) fopen(const char *__restrict__, const char *__restrict__)
+  -> INLINE: (639,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (673,7) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (677,3) fclose(FILE *)
+  -> EXTERN: (679,8) fopen(const char *__restrict__, const char *__restrict__)
+  -> INLINE: (683,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (688,5) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (691,3) fclose(FILE *)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at d2q9-bgknew.c(642,3)
+   remark #25095: Loop Interchange not done due to: User Function Inside Loop Nest
+   remark #25452: Original Order found to be proper, but by a close margin
+   remark #15382: vectorization support: call to function fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ d2q9-bgknew.c(673,7) ]
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:fprintf(FILE *__restrict__, const char *__restrict__, ...) (673:7) and call:fprintf(FILE *__restrict__, const char *__restrict__, ...) (673:7)
+   remark #15346: vector dependence: assumed OUTPUT dependence between call:fprintf(FILE *__restrict__, const char *__restrict__, ...) (673:7) and call:fprintf(FILE *__restrict__, const char *__restrict__, ...) (673:7)
+
+   LOOP BEGIN at d2q9-bgknew.c(644,5)
+      remark #15527: loop was not vectorized: function call to fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ d2q9-bgknew.c(673,7) ]
+
+      LOOP BEGIN at d2q9-bgknew.c(657,9)
+         remark #25436: completely unrolled by 9   (pre-vector) 
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(686,3)
+   remark #15527: loop was not vectorized: function call to fprintf(FILE *__restrict__, const char *__restrict__, ...) cannot be vectorized   [ d2q9-bgknew.c(688,5) ]
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(626,1):remark #34051: REGISTER ALLOCATION : [write_values] d2q9-bgknew.c:626
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   29[ rax rdx rcx rbx rbp rsi rdi r8-r9 r12-r15 zmm0-zmm15]
+        
+    Routine temporaries
+        Total         :     141
+            Global    :      37
+            Local     :     104
+        Regenerable   :      44
+        Spilled       :      13
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      64 bytes*
+            Reads     :       9 [7.87e+01 ~ 5.9%]
+            Writes    :       8 [1.80e+01 ~ 1.4%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: accelerate_flow(const t_param, t_speed *__restrict__, int *__restrict__)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (accelerate_flow(const t_param, t_speed *__restrict__, int *__restrict__)) [4/11=36.4%] d2q9-bgknew.c(194,1)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at d2q9-bgknew.c(203,3)
+<Peeled loop for vectorization>
+   remark #25015: Estimate of max trip count of loop=15
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(203,3)
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(207,45) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(207,98) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(207,151) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(210,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][1]>, stride is 9   [ d2q9-bgknew.c(210,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(211,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][5]>, stride is 9   [ d2q9-bgknew.c(211,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(212,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][8]>, stride is 9   [ d2q9-bgknew.c(212,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(214,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][3]>, stride is 9   [ d2q9-bgknew.c(214,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(215,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][6]>, stride is 9   [ d2q9-bgknew.c(215,7) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(216,7) ]
+   remark #15415: vectorization support: non-unit strided load was generated for the variable <cells->speeds[ii+jj*params.nx][7]>, stride is 9   [ d2q9-bgknew.c(216,7) ]
+   remark #15305: vectorization support: vector length 16
+   remark #15309: vectorization support: normalized vectorization overhead 0.038
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15442: entire loop may be executed in remainder
+   remark #15448: unmasked aligned unit stride loads: 1 
+   remark #15452: unmasked strided loads: 9 
+   remark #15453: unmasked strided stores: 6 
+   remark #15475: --- begin vector cost summary ---
+   remark #15476: scalar cost: 19 
+   remark #15477: vector cost: 46.120 
+   remark #15478: estimated potential speedup: 0.420 
+   remark #15488: --- end vector cost summary ---
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(203,3)
+<Remainder loop for vectorization>
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(194,1):remark #34051: REGISTER ALLOCATION : [accelerate_flow] d2q9-bgknew.c:194
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   27[ rax rdx rcx rbx rsi rdi r8-r11 r15 zmm0-zmm15]
+        
+    Routine temporaries
+        Total         :     199
+            Global    :      48
+            Local     :     151
+        Regenerable   :      28
+        Spilled       :       2
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: av_velocity(const t_param, t_speed *, int *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (av_velocity(const t_param, t_speed *, int *)) [5/11=45.5%] d2q9-bgknew.c(371,1)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at d2q9-bgknew.c(379,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgknew.c(381,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at d2q9-bgknew.c(389,9)
+         remark #15389: vectorization support: reference cells->speeds[ii+jj*params.nx][kk] has unaligned access   [ d2q9-bgknew.c(391,28) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 4
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 1.833
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 5 
+         remark #15477: vector cost: 1.500 
+         remark #15478: estimated potential speedup: 1.150 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=1
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgknew.c(389,9)
+      <Remainder loop for vectorization>
+         remark #25436: completely unrolled by 1  
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(371,1):remark #34051: REGISTER ALLOCATION : [av_velocity] d2q9-bgknew.c:371
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   28[ rax rdx rcx rbx rsi rdi r8-r11 r14-r15 zmm0-zmm15]
+        
+    Routine temporaries
+        Total         :      56
+            Global    :      21
+            Local     :      35
+        Regenerable   :       4
+        Spilled       :       3
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      24 bytes*
+            Reads     :       3 [2.70e+00 ~ 0.4%]
+            Writes    :       3 [2.70e+00 ~ 0.4%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: finalise(const t_param *, t_speed **, t_speed **, int **, float **)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (finalise(const t_param *, t_speed **, t_speed **, int **, float **)) [6/11=54.5%] d2q9-bgknew.c(581,1)
+  -> EXTERN: (585,3) free(void *)
+  -> EXTERN: (588,3) free(void *)
+  -> EXTERN: (591,3) free(void *)
+  -> EXTERN: (594,3) free(void *)
+
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(581,1):remark #34051: REGISTER ALLOCATION : [finalise] d2q9-bgknew.c:581
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   10[ rax rdx rcx rbx rbp rsi rdi r8 r12-r13]
+        
+    Routine temporaries
+        Total         :      24
+            Global    :      10
+            Local     :      14
+        Regenerable   :       1
+        Spilled       :       4
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: calc_reynolds(const t_param, t_speed *, int *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (calc_reynolds(const t_param, t_speed *, int *)) [7/11=63.6%] d2q9-bgknew.c(601,1)
+  -> INLINE: (604,10) av_velocity(const t_param, t_speed *, int *) (isz = 150) (sz = 161)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at d2q9-bgknew.c(379,3) inlined into d2q9-bgknew.c(604,10)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgknew.c(381,5) inlined into d2q9-bgknew.c(604,10)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at d2q9-bgknew.c(389,9) inlined into d2q9-bgknew.c(604,10)
+         remark #15389: vectorization support: reference cells->speeds[ii+jj*params.nx][kk] has unaligned access   [ d2q9-bgknew.c(391,28) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 4
+         remark #15399: vectorization support: unroll factor set to 2
+         remark #15309: vectorization support: normalized vectorization overhead 1.833
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 5 
+         remark #15477: vector cost: 1.500 
+         remark #15478: estimated potential speedup: 1.150 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=1
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgknew.c(389,9) inlined into d2q9-bgknew.c(604,10)
+      <Remainder loop for vectorization>
+         remark #25436: completely unrolled by 1  
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(601,1):remark #34051: REGISTER ALLOCATION : [calc_reynolds] d2q9-bgknew.c:601
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   28[ rax rdx rcx rbx rsi rdi r8-r11 r14-r15 zmm0-zmm15]
+        
+    Routine temporaries
+        Total         :      63
+            Global    :      22
+            Local     :      41
+        Regenerable   :       7
+        Spilled       :       3
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      24 bytes*
+            Reads     :       3 [2.70e+00 ~ 0.4%]
+            Writes    :       3 [2.70e+00 ~ 0.4%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: total_density(const t_param, t_speed *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (total_density(const t_param, t_speed *)) [8/11=72.7%] d2q9-bgknew.c(608,1)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at d2q9-bgknew.c(611,3)
+   remark #25101: Loop Interchange not done due to: Original Order seems proper
+   remark #25452: Original Order found to be proper, but by a close margin
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgknew.c(613,5)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at d2q9-bgknew.c(615,7)
+         remark #15389: vectorization support: reference cells->speeds[ii+jj*params.nx][kk] has unaligned access   [ d2q9-bgknew.c(617,18) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 8
+         remark #15309: vectorization support: normalized vectorization overhead 0.500
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15450: unmasked unaligned unit stride loads: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 5 
+         remark #15477: vector cost: 0.750 
+         remark #15478: estimated potential speedup: 3.210 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=1
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgknew.c(615,7)
+      <Remainder loop for vectorization>
+         remark #25436: completely unrolled by 1  
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(608,1):remark #34051: REGISTER ALLOCATION : [total_density] d2q9-bgknew.c:608
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   17[ rax rdx rcx rsi rdi r8-r11 zmm0-zmm7]
+        
+    Routine temporaries
+        Total         :      31
+            Global    :      18
+            Local     :      13
+        Regenerable   :       3
+        Spilled       :       0
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: die(const char *, const int, const char *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (die(const char *, const int, const char *)) [9/11=81.8%] d2q9-bgknew.c(697,1)
+  -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (700,3) fflush(FILE *)
+  -> EXTERN: (701,3) exit(int)
+
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(697,1):remark #34051: REGISTER ALLOCATION : [die] d2q9-bgknew.c:697
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    6[ rax rdx rcx rbx rsi rdi]
+        
+    Routine temporaries
+        Total         :      28
+            Global    :       1
+            Local     :      27
+        Regenerable   :       9
+        Spilled       :       0
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: usage(const char *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (usage(const char *)) [10/11=90.9%] d2q9-bgknew.c(705,1)
+  -> EXTERN: (706,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (707,3) exit(int)
+
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(705,1):remark #34051: REGISTER ALLOCATION : [usage] d2q9-bgknew.c:705
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    4[ rax rdx rsi rdi]
+        
+    Routine temporaries
+        Total         :      15
+            Global    :       0
+            Local     :      15
+        Regenerable   :       4
+        Spilled       :       0
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, float **)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (initialise(const char *, const char *, t_param *, t_speed **, t_speed **, int **, float **)) [11/11=100.0%] d2q9-bgknew.c(413,1)
+  -> EXTERN: (421,8) fopen(const char *__restrict__, const char *__restrict__)
+  -> EXTERN: (425,5) sprintf(char *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (426,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (430,12) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (433,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (435,12) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (438,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (440,12) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (443,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (445,12) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (448,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (450,12) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (453,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (455,12) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (458,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (460,12) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (463,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (466,3) fclose(FILE *)
+  -> EXTERN: (488,27) malloc(size_t)
+  -> INLINE: (491,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (494,31) malloc(size_t)
+  -> INLINE: (497,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (500,20) malloc(size_t)
+  -> INLINE: (503,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (539,8) fopen(const char *__restrict__, const char *__restrict__)
+  -> EXTERN: (543,5) sprintf(char *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (544,5) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (548,20) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> EXTERN: (548,20) fscanf(FILE *__restrict__, const char *__restrict__, ...)
+  -> INLINE: (552,7) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> INLINE: (555,7) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> INLINE: (558,7) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> INLINE: (561,7) die(const char *, const int, const char *) (isz = 14) (sz = 22)
+    -> EXTERN: (698,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (699,3) fprintf(FILE *__restrict__, const char *__restrict__, ...)
+    -> EXTERN: (700,3) fflush(FILE *)
+    -> EXTERN: (701,3) exit(int)
+  -> EXTERN: (568,3) fclose(FILE *)
+  -> EXTERN: (574,27) malloc(size_t)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at d2q9-bgknew.c(510,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Distributed chunk1>
+      remark #25426: Loop Distributed (6 way) 
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <*cells_ptr->speeds[ii+jj*params->nx][4]>, stride is 9   [ d2q9-bgknew.c(520,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.051
+      remark #15301: PARTIAL LOOP WAS VECTORIZED
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 3 
+      remark #15477: vector cost: 2.430 
+      remark #15478: estimated potential speedup: 1.210 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Remainder loop for vectorization, Distributed chunk1>
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Distributed chunk2>
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <*cells_ptr->speeds[ii+jj*params->nx][3]>, stride is 9   [ d2q9-bgknew.c(519,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.051
+      remark #15301: PARTIAL LOOP WAS VECTORIZED
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 3 
+      remark #15477: vector cost: 2.430 
+      remark #15478: estimated potential speedup: 1.210 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Remainder loop for vectorization, Distributed chunk2>
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Distributed chunk3>
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <*cells_ptr->speeds[ii+jj*params->nx][2]>, stride is 9   [ d2q9-bgknew.c(518,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.051
+      remark #15301: PARTIAL LOOP WAS VECTORIZED
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 3 
+      remark #15477: vector cost: 2.430 
+      remark #15478: estimated potential speedup: 1.210 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Remainder loop for vectorization, Distributed chunk3>
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Distributed chunk4>
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <*cells_ptr->speeds[ii+jj*params->nx][1]>, stride is 9   [ d2q9-bgknew.c(517,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.051
+      remark #15301: PARTIAL LOOP WAS VECTORIZED
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 3 
+      remark #15477: vector cost: 2.430 
+      remark #15478: estimated potential speedup: 1.210 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Remainder loop for vectorization, Distributed chunk4>
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Distributed chunk5>
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <*cells_ptr->speeds[ii+jj*params->nx][0]>, stride is 9   [ d2q9-bgknew.c(515,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.051
+      remark #15301: PARTIAL LOOP WAS VECTORIZED
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 3 
+      remark #15477: vector cost: 2.430 
+      remark #15478: estimated potential speedup: 1.210 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Remainder loop for vectorization, Distributed chunk5>
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Distributed chunk6>
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+      remark #25439: unrolled with remainder by 2  
+
+      LOOP BEGIN at d2q9-bgknew.c(522,9)
+         remark #15389: vectorization support: reference *cells_ptr->speeds[ii+jj*params->nx][_2+5] has unaligned access
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 4
+         remark #15427: loop was completely unrolled
+         remark #15309: vectorization support: normalized vectorization overhead 0.800
+         remark #15301: MATERIALIZED LOOP WAS VECTORIZED
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 3 
+         remark #15477: vector cost: 1.250 
+         remark #15478: estimated potential speedup: 1.330 
+         remark #15488: --- end vector cost summary ---
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at d2q9-bgknew.c(512,5)
+   <Remainder, Distributed chunk6>
+   LOOP END
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(530,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at d2q9-bgknew.c(532,5)
+      remark #25408: memset generated
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at d2q9-bgknew.c(532,5)
+         remark #15389: vectorization support: reference obstacles_ptr has unaligned access   [ d2q9-bgknew.c(534,9) ]
+         remark #15381: vectorization support: unaligned access used inside loop body
+         remark #15305: vectorization support: vector length 8
+         remark #15309: vectorization support: normalized vectorization overhead 0.600
+         remark #15300: LOOP WAS VECTORIZED
+         remark #15451: unmasked unaligned unit stride stores: 1 
+         remark #15475: --- begin vector cost summary ---
+         remark #15476: scalar cost: 3 
+         remark #15477: vector cost: 0.620 
+         remark #15478: estimated potential speedup: 4.000 
+         remark #15488: --- end vector cost summary ---
+         remark #25015: Estimate of max trip count of loop=3
+      LOOP END
+
+      LOOP BEGIN at d2q9-bgknew.c(532,5)
+      <Remainder loop for vectorization>
+         remark #25015: Estimate of max trip count of loop=24
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at d2q9-bgknew.c(548,3)
+   remark #15521: loop was not vectorized: loop control variable was not identified. Explicitly compute the iteration count before executing the loop or try using canonical loop form from OpenMP specification
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+d2q9-bgknew.c(532,5):remark #34014: optimization advice for memset: increase the destination's alignment to 16 (and use __assume_aligned) to speed up library implementation
+d2q9-bgknew.c(532,5):remark #34026: call to memset implemented as a call to optimized library version
+d2q9-bgknew.c(413,1):remark #34051: REGISTER ALLOCATION : [initialise] d2q9-bgknew.c:413
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   19[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm4]
+        
+    Routine temporaries
+        Total         :     515
+            Global    :     103
+            Local     :     412
+        Regenerable   :     241
+        Spilled       :      16
+        
+    Routine stack
+        Variables     :    1036 bytes*
+            Reads     :       3 [1.63e+01 ~ 0.3%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :      88 bytes*
+            Reads     :      25 [6.79e+01 ~ 1.4%]
+            Writes    :      17 [3.15e+01 ~ 0.7%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINING FOOTNOTES:
+
+<1> The function is larger than the inliner would normally inline.  Use the
+    option -inline-max-size to increase the size of any function that would
+    normally be inlined, add "inline __attribute__((always_inline))" to the
+    declaration of the called function, or add "#pragma forceinline" before
+    the call site.
+

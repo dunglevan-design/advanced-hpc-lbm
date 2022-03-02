@@ -92,8 +92,8 @@ int initialise(const char *paramfile, const char *obstaclefile,
 ** timestep calls, in order, the functions:
 ** accelerate_flow(), propagate(), rebound() & collision()
 */
-float timestep(const t_param params, t_speed *cells, t_speed *tmp_cells, int *obstacles);
-int accelerate_flow(const t_param params, t_speed *cells, int *obstacles);
+float timestep(const t_param params, t_speed *restrict cells, t_speed *restrict tmp_cells, int *obstacles);
+int accelerate_flow(const t_param params, t_speed *restrict cells, int *restrict obstacles);
 int write_values(const t_param params, t_speed *cells, int *obstacles, float *av_vels);
 
 /* finalise, including freeing up allocated memory */
@@ -152,6 +152,7 @@ int main(int argc, char *argv[])
 
   for (int tt = 0; tt < params.maxIters; tt++)
   {
+    #pragma ivdep
     av_vels[tt] = timestep(params, cells, tmp_cells, obstacles);
     t_speed *temp = cells;
     cells = tmp_cells;
@@ -189,7 +190,7 @@ int main(int argc, char *argv[])
   return EXIT_SUCCESS;
 }
 
-int accelerate_flow(const t_param params, t_speed *cells, int *obstacles)
+int accelerate_flow(const t_param params, t_speed* restrict cells, int * restrict obstacles)
 {
   /* compute weighting factors */
   float w1 = params.density * params.accel / 9.f;
@@ -198,6 +199,7 @@ int accelerate_flow(const t_param params, t_speed *cells, int *obstacles)
   /* modify the 2nd row of the grid */
   int jj = params.ny - 2;
 
+  #pragma vector always
   for (int ii = 0; ii < params.nx; ii++)
   {
     /* if the cell is not occupied and
@@ -218,8 +220,10 @@ int accelerate_flow(const t_param params, t_speed *cells, int *obstacles)
   return EXIT_SUCCESS;
 }
 
-float timestep(const t_param params, t_speed *cells, t_speed *tmp_cells, int *obstacles)
+float timestep(const t_param params, t_speed *restrict cells, t_speed * restrict tmp_cells, int * restrict obstacles)
 {
+  __assume_aligned(cells,64);
+  __assume_aligned(tmp_cells,64);
   accelerate_flow(params, cells, obstacles);
 
   int tot_cells = 0; /* no. of cells used in calculation */
@@ -227,9 +231,11 @@ float timestep(const t_param params, t_speed *cells, t_speed *tmp_cells, int *ob
 
   /* initialise */
   tot_u = 0.f;
-
+  
+  #pragma omp simd
   for (int jj = 0; jj < params.ny; jj++)
   {
+    #pragma omp simd
     for (int ii = 0; ii < params.nx; ii++)
     {
 
@@ -332,6 +338,8 @@ float timestep(const t_param params, t_speed *cells, t_speed *tmp_cells, int *ob
 
         /* relaxation step */
         float local_density_av = 0.f;
+        
+        #pragma ivdep
         for (int kk = 0; kk < NSPEEDS; kk++)
         {
           tmp_cells[ii + jj * params.nx].speeds[kk] = tmp_cells[ii + jj * params.nx].speeds[kk] + params.omega * (d_equ[kk] - tmp_cells[ii + jj * params.nx].speeds[kk]);

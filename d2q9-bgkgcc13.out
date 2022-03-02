@@ -1,0 +1,24 @@
+Running on host compute106.bc4.acrc.priv
+Time is Wed Mar 2 11:46:38 GMT 2022
+Directory is /user/home/kp19251/advanced-hpc-lbm
+Slurm job ID is 10084854
+This job runs on the following machines:
+compute106
+==done==
+Reynolds number:		9.756184577942E+00
+Elapsed Init time:			0.035804 (s)
+Elapsed Compute time:			6.559550 (s)
+Elapsed Collate time:			0.000000 (s)
+Elapsed Total time:			6.595354 (s)
+Intel(R) Advisor Command Line Tool
+Copyright (C) 2009-2018 Intel Corporation. All rights reserved.
+advixe: Opening result  0 %                                                    advixe: Opening result  0 % Preparing data for display of survey call tree     advixe: Opening result  2 % Preparing data for display of survey call tree     advixe: Opening result 25 % Preparing data for display of survey call tree     advixe: Opening result 25 % done                                               
+advixe: Preparing frequently used data  0 % done                               advixe: Preparing frequently used data  0 % done                               
+advixe: Preparing frequently used data 100 % done                              
+advixe: Error: The target modules have been changed since the last Survey analysis run. You may ignore such error using the --ignore-checksums option, but your Trip Counts data might become unreliable. To synchronize Trip Counts and Survey data, collect Survey data for the updated binaries with the --delete-tripcounts option specified, and then collect Trip Counts data once again. 
+Intel(R) Advisor Command Line Tool
+Copyright (C) 2009-2018 Intel Corporation. All rights reserved.
+advixe: Opening result  0 %                                                    advixe: Opening result  0 % Preparing data for display of survey call tree     advixe: Opening result  2 % Preparing data for display of survey call tree     advixe: Opening result 25 % Preparing data for display of survey call tree     advixe: Opening result 25 % done                                               
+advixe: Preparing frequently used data  0 % done                               advixe: Preparing frequently used data  0 % done                               
+advixe: Preparing frequently used data 100 % done                              
+advixe: Error: The target modules have been changed since the last Survey analysis run. To ignore such error use --ignore-checksums option.

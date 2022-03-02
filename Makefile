@@ -3,8 +3,8 @@
 EXE=d2q9-bgk
 NEW=d2q9-bgknew
 
-CC=gcc
-CFLAGS= -std=c99 -Wall -pg -Ofast -march='native'
+CC=icc
+CFLAGS= -std=c99 -Wall -Ofast -xHost -restrict -qopenmp -no-prec-sqrt -no-prec-div
 LIBS = -lm
 
 FINAL_STATE_FILE=./final_state.dat
@@ -14,7 +14,7 @@ REF_AV_VELS_FILE=check/128x128.av_vels.dat
 
 all: $(EXE)
 
-$(EXE): $(NEW).c
+$(EXE): $(EXE).c
 	$(CC) $(CFLAGS) $^ $(LIBS) -o $@
 
 check:
