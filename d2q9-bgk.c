@@ -249,7 +249,7 @@ float timestep(const t_param params, t_speed *restrict cells, t_speed *restrict 
 #pragma omp parallel for reduction(+:tot_u) reduction(+:tot_cells) private(local_density)
   for (int jj = 0; jj < params.ny; jj++)
   {
-#pragma omp simd
+#pragma omp simd private(local_density) reduction(+:tot_u) reduction(+:tot_cells) 
     for (int ii = 0; ii < params.nx; ii++)
     {
       __assume_aligned(cells->speeds0, 64);
