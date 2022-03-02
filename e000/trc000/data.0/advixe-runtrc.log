@@ -3,7 +3,7 @@
 
 <msg id="1" tool="runtool">
   <type>log-start</type>
-  <arg>2022/03/02 11:40:05</arg>
+  <arg>2022/03/02 17:16:00</arg>
 </msg>
 <msg id="2" tool="runtool">
   <type>collector-starts</type>
@@ -15,164 +15,178 @@
 <msg id="4" tool="trc">
   <type>PROCESS_START</type>
   <arg>/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk</arg>
-  <arg>864</arg>
+  <arg>10716</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:05 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:00 2022</timestamp>
 </msg>
 <msg id="5" tool="trc">
   <type>PROCESS_ANALYSIS_MODE</type>
   <arg>full</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="6" tool="trc">
   <type>LOAD_MODULE</type>
   <arg>/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk</arg>
   <arg>0x400000</arg>
-  <arg>0x60de5f</arg>
+  <arg>0x60af7f</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="7" tool="trc">
   <type>LOAD_MODULE</type>
   <arg>/lib64/ld-linux-x86-64.so.2</arg>
-  <arg>0x2b2c5ca86000</arg>
-  <arg>0x2b2c5cca914f</arg>
+  <arg>0x2b7519540000</arg>
+  <arg>0x2b751976314f</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="8" tool="trc">
   <type>LOAD_MODULE</type>
   <arg>[vdso]</arg>
-  <arg>0x2b2c5caa8000</arg>
-  <arg>0x2b2c5caa8e6c</arg>
+  <arg>0x7ffe077f5000</arg>
+  <arg>0x7ffe077f5e6c</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="9" tool="trc">
   <type>LOAD_MODULE</type>
   <arg>/lib64/libm.so.6</arg>
-  <arg>0x2b2c71535000</arg>
-  <arg>0x2b2c71836137</arg>
+  <arg>0x2b752dfd2000</arg>
+  <arg>0x2b752e2d3137</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="10" tool="trc">
   <type>LOAD_MODULE</type>
   <arg>/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/compiler/lib/intel64/libiomp5.so</arg>
-  <arg>0x2b2c7186b000</arg>
-  <arg>0x2b2c71c4503f</arg>
+  <arg>0x2b752e307000</arg>
+  <arg>0x2b752e6e103f</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="11" tool="trc">
   <type>LOAD_MODULE</type>
   <arg>/mnt/storage/software/languages/gcc-9.3/lib64/libgcc_s.so.1</arg>
-  <arg>0x2b2c71c46000</arg>
-  <arg>0x2b2c71e5d44f</arg>
+  <arg>0x2b752e6e2000</arg>
+  <arg>0x2b752e8f944f</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="12" tool="trc">
   <type>LOAD_MODULE</type>
   <arg>/lib64/libpthread.so.0</arg>
-  <arg>0x2b2c71e5e000</arg>
-  <arg>0x2b2c72079487</arg>
+  <arg>0x2b752e8fa000</arg>
+  <arg>0x2b752eb15487</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="13" tool="trc">
   <type>LOAD_MODULE</type>
   <arg>/lib64/libc.so.6</arg>
-  <arg>0x2b2c7207a000</arg>
-  <arg>0x2b2c724471ff</arg>
+  <arg>0x2b752eb16000</arg>
+  <arg>0x2b752eee31ff</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="14" tool="trc">
   <type>LOAD_MODULE</type>
   <arg>/lib64/libdl.so.2</arg>
-  <arg>0x2b2c72448000</arg>
-  <arg>0x2b2c7264b12f</arg>
+  <arg>0x2b752eee4000</arg>
+  <arg>0x2b752f0e712f</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:06 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="15" tool="trc">
-  <type>UNLOAD_MODULE</type>
-  <arg>/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk</arg>
+  <type>LOAD_MODULE</type>
+  <arg>/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/advisor_2018.3.0.558307/lib64/runtime/libittnotify.so</arg>
+  <arg>0x2b752ffc1000</arg>
+  <arg>0x2b75301cc63f</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:01 2022</timestamp>
 </msg>
 <msg id="16" tool="trc">
   <type>UNLOAD_MODULE</type>
-  <arg>/lib64/ld-linux-x86-64.so.2</arg>
+  <arg>/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
 </msg>
 <msg id="17" tool="trc">
   <type>UNLOAD_MODULE</type>
-  <arg>[vdso]</arg>
+  <arg>/lib64/ld-linux-x86-64.so.2</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
 </msg>
 <msg id="18" tool="trc">
   <type>UNLOAD_MODULE</type>
-  <arg>/lib64/libm.so.6</arg>
+  <arg>[vdso]</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
 </msg>
 <msg id="19" tool="trc">
   <type>UNLOAD_MODULE</type>
-  <arg>/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/compiler/lib/intel64/libiomp5.so</arg>
+  <arg>/lib64/libm.so.6</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
 </msg>
 <msg id="20" tool="trc">
   <type>UNLOAD_MODULE</type>
-  <arg>/mnt/storage/software/languages/gcc-9.3/lib64/libgcc_s.so.1</arg>
+  <arg>/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/compiler/lib/intel64/libiomp5.so</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
 </msg>
 <msg id="21" tool="trc">
   <type>UNLOAD_MODULE</type>
-  <arg>/lib64/libpthread.so.0</arg>
+  <arg>/mnt/storage/software/languages/gcc-9.3/lib64/libgcc_s.so.1</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
 </msg>
 <msg id="22" tool="trc">
   <type>UNLOAD_MODULE</type>
-  <arg>/lib64/libc.so.6</arg>
+  <arg>/lib64/libpthread.so.0</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
 </msg>
 <msg id="23" tool="trc">
   <type>UNLOAD_MODULE</type>
-  <arg>/lib64/libdl.so.2</arg>
+  <arg>/lib64/libc.so.6</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
 </msg>
 <msg id="24" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/lib64/libdl.so.2</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
+</msg>
+<msg id="25" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/advisor_2018.3.0.558307/lib64/runtime/libittnotify.so</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
+</msg>
+<msg id="26" tool="trc">
   <type>PROCESS_FINISH</type>
   <arg>/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk</arg>
-  <arg>864</arg>
+  <arg>10716</arg>
   <arg>0x0</arg>
   <severity>INFO</severity>
-  <timestamp>Wed Mar  2 11:40:14 2022</timestamp>
+  <timestamp>Wed Mar  2 17:16:07 2022</timestamp>
 </msg>
-<msg id="25" tool="runtool">
+<msg id="27" tool="runtool">
   <type>app-exit-code</type>
   <arg>0</arg>
 </msg>
-<msg id="26" tool="runtool">
+<msg id="28" tool="runtool">
   <type>marker-file</type>
   <arg>/user/home/kp19251/advanced-hpc-lbm/e000/trc000/trc000.advixe</arg>
 </msg>
-<msg id="27" tool="runtool">
+<msg id="29" tool="runtool">
   <type>collector-done</type>
 </msg>
-<msg id="28" tool="runtool">
+<msg id="30" tool="runtool">
   <type>log-end</type>
-  <arg>2022/03/02 11:40:18</arg>
+  <arg>2022/03/02 17:16:11</arg>
 </msg>
 
 </log>

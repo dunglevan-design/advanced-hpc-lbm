@@ -2,12 +2,12 @@
 
 #SBATCH --job-name d2q9-bgk
 #SBATCH --nodes 1
-#SBATCH --ntasks-per-node 14
+#SBATCH --ntasks-per-node 28
 #SBATCH --time 00:10:00
 #SBATCH --partition veryshort
 #SBATCH --reservation=COSC026662
 #SBATCH --account=COSC026662
-#SBATCH --output d2q9-bgkgcc13.out
+#SBATCH --output d2q9-bgkgcc.out
 
 echo Running on host `hostname`
 echo Time is `date`
@@ -20,8 +20,8 @@ echo `echo $SLURM_JOB_NODELIST | uniq`
 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
 make check
 #advixe-cl -collect dependencies -mark-up-list=13 -project-dir /user/home/kp19251/advanced-hpc-lbm -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-advixe-cl --collect=survey -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-advixe-cl -collect tripcounts -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
+#advixe-cl --collect=survey -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
+#advixe-cl -collect tripcounts -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
 #./d2q9-bgk input_128x256.params obstacles_128x256.dat
 #./d2q9-bgk input_256x256.params obstacles_256x256.dat
 #./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat

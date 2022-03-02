@@ -55,6 +55,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <omp.h>
 
 #define NCELLS 16384
 #define NSPEEDS 9
@@ -135,6 +136,7 @@ int main(int argc, char *argv[])
   float *av_vels = NULL;                                                             /* a record of the av. velocity computed for each timestep */
   struct timeval timstr;                                                             /* structure to hold elapsed time */
   double tot_tic, tot_toc, init_tic, init_toc, comp_tic, comp_toc, col_tic, col_toc; /* floating point numbers to calculate elapsed wallclock time */
+
 
   /* parse the command line */
   if (argc != 3)
@@ -244,7 +246,7 @@ float timestep(const t_param params, t_speed *restrict cells, t_speed *restrict 
 
   /* initialise */
   tot_u = 0.f;
-#pragma ivdep
+#pragma omp parallel for reduction(+:tot_u) reduction(+:tot_cells) private(local_density)
   for (int jj = 0; jj < params.ny; jj++)
   {
 #pragma omp simd

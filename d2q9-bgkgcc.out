@@ -1,12 +1,22 @@
-Running on host compute101.bc4.acrc.priv
-Time is Tue Feb 8 17:36:33 GMT 2022
+Running on host compute102.bc4.acrc.priv
+Time is Wed Mar 2 17:22:10 GMT 2022
 Directory is /user/home/kp19251/advanced-hpc-lbm
-Slurm job ID is 10032924
+Slurm job ID is 10090480
 This job runs on the following machines:
-compute101
+compute102
 ==done==
-Reynolds number:		9.758069038391E+00
-Elapsed Init time:			0.002372 (s)
-Elapsed Compute time:			21.822588 (s)
-Elapsed Collate time:			0.000000 (s)
-Elapsed Total time:			21.824960 (s)
+Reynolds number:		9.762797355652E+00
+Elapsed Init time:			0.002908 (s)
+Elapsed Compute time:			2.475033 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			2.477942 (s)
+python check/check.py --ref-av-vels-file=check/128x128.av_vels.dat --ref-final-state-file=check/128x128.final_state.dat --av-vels-file=./av_vels.dat --final-state-file=./final_state.dat
+Total difference in av_vels : 8.451219310110E-03
+Biggest difference (at step 0) : -6.438694830001E-09
+  1.094913022825E-05 vs. 1.094269153342E-05 = -0.059%
+
+Total difference in final_state : 3.252060814850E-01
+Biggest difference (at coord (95,110)) : -2.053347016000E-05
+  3.334889560938E-02 vs. 3.332836213922E-02 = -0.062%
+
+Both tests passed!
