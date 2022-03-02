@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log version="1.0" tool="runtool">
+
+<msg id="1" tool="runtool">
+  <type>log-start</type>
+  <arg>2022/03/02 12:43:40</arg>
+</msg>
+<msg id="2" tool="runtool">
+  <type>collector-starts</type>
+</msg>
+<msg id="3" tool="runtool">
+  <type>marker-file</type>
+  <arg>/user/home/kp19251/advanced-hpc-lbm/e001/trc000/trc000.advixe</arg>
+</msg>
+<msg id="4" tool="trc">
+  <type>PROCESS_START</type>
+  <arg>/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk</arg>
+  <arg>17524</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:40 2022</timestamp>
+</msg>
+<msg id="5" tool="trc">
+  <type>PROCESS_ANALYSIS_MODE</type>
+  <arg>full</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="6" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk</arg>
+  <arg>0x400000</arg>
+  <arg>0x60de5f</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="7" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/lib64/ld-linux-x86-64.so.2</arg>
+  <arg>0x2b8171850000</arg>
+  <arg>0x2b8171a7314f</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="8" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>[vdso]</arg>
+  <arg>0x7ffedb0f4000</arg>
+  <arg>0x7ffedb0f4e6c</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="9" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/lib64/libm.so.6</arg>
+  <arg>0x2b81862eb000</arg>
+  <arg>0x2b81865ec137</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="10" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/compiler/lib/intel64/libiomp5.so</arg>
+  <arg>0x2b8186621000</arg>
+  <arg>0x2b81869fb03f</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="11" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/mnt/storage/software/languages/gcc-9.3/lib64/libgcc_s.so.1</arg>
+  <arg>0x2b81869fc000</arg>
+  <arg>0x2b8186c1344f</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="12" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/lib64/libpthread.so.0</arg>
+  <arg>0x2b8186c14000</arg>
+  <arg>0x2b8186e2f487</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="13" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/lib64/libc.so.6</arg>
+  <arg>0x2b8186e30000</arg>
+  <arg>0x2b81871fd1ff</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="14" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/lib64/libdl.so.2</arg>
+  <arg>0x2b81871fe000</arg>
+  <arg>0x2b818740112f</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:41 2022</timestamp>
+</msg>
+<msg id="15" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="16" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/lib64/ld-linux-x86-64.so.2</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="17" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>[vdso]</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="18" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/lib64/libm.so.6</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="19" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/mnt/storage/software/languages/intel/intel-parallel_studio_xe_2018_u3/compilers_and_libraries_2018.3.222/linux/compiler/lib/intel64/libiomp5.so</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="20" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/mnt/storage/software/languages/gcc-9.3/lib64/libgcc_s.so.1</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="21" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/lib64/libpthread.so.0</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="22" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/lib64/libc.so.6</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="23" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/lib64/libdl.so.2</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="24" tool="trc">
+  <type>PROCESS_FINISH</type>
+  <arg>/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk</arg>
+  <arg>17524</arg>
+  <arg>0x0</arg>
+  <severity>INFO</severity>
+  <timestamp>Wed Mar  2 12:43:49 2022</timestamp>
+</msg>
+<msg id="25" tool="runtool">
+  <type>app-exit-code</type>
+  <arg>0</arg>
+</msg>
+<msg id="26" tool="runtool">
+  <type>marker-file</type>
+  <arg>/user/home/kp19251/advanced-hpc-lbm/e001/trc000/trc000.advixe</arg>
+</msg>
+<msg id="27" tool="runtool">
+  <type>collector-done</type>
+</msg>
+<msg id="28" tool="runtool">
+  <type>log-end</type>
+  <arg>2022/03/02 12:43:53</arg>
+</msg>
+
+</log>
+

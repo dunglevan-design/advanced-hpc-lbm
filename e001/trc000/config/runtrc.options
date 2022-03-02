@@ -1,0 +1,10 @@
+-r
+/user/home/kp19251/advanced-hpc-lbm/e001/trc000
+-quiet
+-cs-file
+/user/home/kp19251/advanced-hpc-lbm/e001/callstacks.def
+--cs-mode=no-count-loops,no-count-flops,stack-stitching
+--
+./d2q9-bgk
+input_128x128.params
+obstacles_128x128.dat

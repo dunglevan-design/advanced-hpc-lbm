@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- <!DOCTYPE IntelParallelAdvisorSummaryCollection SYSTEM  "IntelParallelAdvisorSummaryCollection.dtd"> -->
+
+<IntelParallelAdvisorSummary version="" 
+                             kind="DATAKIND_SURVEY_EX" >
+  <hotspot filename="/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk.c"
+           line_no="278"
+           routine="timestep"
+           is_vectorized="1"
+           self_time="6.120000E+00"
+           total_time="6.120000E+00"
+           trip_counts="15; 7"
+           func_instance="41"
+           priority="0">
+           <recommendation id="rec_registers_pressure_split_loop_c" title="Split loop into smaller loops" confidence="3" gain="-1"/>
+  </hotspot>
+  <hotspot filename="/user/home/kp19251/advanced-hpc-lbm/d2q9-bgk.c"
+           line_no="278"
+           routine="timestep"
+           is_vectorized="1"
+           self_time="2.999984E-02"
+           total_time="2.999984E-02"
+           trip_counts="15; 7"
+           func_instance="40"
+           priority="0">
+           <recommendation id="rec_registers_pressure_split_loop_c" title="Split loop into smaller loops" confidence="3" gain="-1"/>
+  </hotspot>
+</IntelParallelAdvisorSummary >

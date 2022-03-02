@@ -4,7 +4,7 @@ EXE=d2q9-bgk
 NEW=d2q9-bgknew
 
 CC=icc
-CFLAGS= -std=c99 -Wall -Ofast -xHost -restrict -qopenmp -no-prec-sqrt -no-prec-div
+CFLAGS= -std=c99 -Wall -O3 -xHost -g -qopt-report=5 -restrict -qopenmp -no-prec-sqrt -u__poll -udlclose -udlopen -no-prec-div -ipo
 LIBS = -lm
 
 FINAL_STATE_FILE=./final_state.dat
