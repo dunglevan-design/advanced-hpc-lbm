@@ -1,22 +1,22 @@
-Running on host compute107.bc4.acrc.priv
-Time is Wed Mar 2 18:32:38 GMT 2022
+Running on host compute216.bc4.acrc.priv
+Time is Thu Mar 3 17:42:12 GMT 2022
 Directory is /user/home/kp19251/advanced-hpc-lbm
-Slurm job ID is 10091191
+Slurm job ID is 10097898
 This job runs on the following machines:
-compute107
+compute216
 ==done==
-Reynolds number:		9.755868911743E+00
-Elapsed Init time:			0.002817 (s)
-Elapsed Compute time:			0.994273 (s)
+Reynolds number:		1.005940055847E+01
+Elapsed Init time:			0.016899 (s)
+Elapsed Compute time:			3.802096 (s)
 Elapsed Collate time:			0.000000 (s)
-Elapsed Total time:			0.997090 (s)
-python check/check.py --ref-av-vels-file=check/128x128.av_vels.dat --ref-final-state-file=check/128x128.final_state.dat --av-vels-file=./av_vels.dat --final-state-file=./final_state.dat
-Total difference in av_vels : 1.960246664724E-01
-Biggest difference (at step 39997) : 1.045079631000E-05
-  1.318354066461E-02 vs. 1.319399146092E-02 = 0.079%
+Elapsed Total time:			3.818995 (s)
+python check/check.py --ref-av-vels-file=check/256x256.av_vels.dat --ref-final-state-file=check/256x256.final_state.dat --av-vels-file=./av_vels.dat --final-state-file=./final_state.dat
+Total difference in av_vels : 8.164623385295E-01
+Biggest difference (at step 79993) : 2.383979182000E-05
+  1.359342876822E-02 vs. 1.361726856004E-02 = 0.18%
 
-Total difference in final_state : 2.918561725960E-01
-Biggest difference (at coord (56,62)) : -1.843517072000E-05
-  3.333133459091E-02 vs. 3.331289942019E-02 = -0.055%
+Total difference in final_state : 2.366437857505E+00
+Biggest difference (at coord (135,147)) : -3.676469811000E-05
+  3.334517776966E-02 vs. 3.330841307155E-02 = -0.11%
 
 Both tests passed!

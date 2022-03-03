@@ -1,0 +1,32 @@
+/tmp/slurmd/job10089595/slurm_script: line 3: SBATCH: command not found
+/tmp/slurmd/job10089595/slurm_script: line 4: SBATCH: command not found
+/tmp/slurmd/job10089595/slurm_script: line 5: SBATCH: command not found
+/tmp/slurmd/job10089595/slurm_script: line 6: SBATCH: command not found
+/tmp/slurmd/job10089595/slurm_script: line 7: SBATCH: command not found
+/tmp/slurmd/job10089595/slurm_script: line 8: SBATCH: command not found
+/tmp/slurmd/job10089595/slurm_script: line 9: SBATCH: command not found
+/tmp/slurmd/job10089595/slurm_script: line 10: SBATCH: command not found
+Running on host compute333.bc4.acrc.priv
+Time is Thu Mar 3 06:36:19 GMT 2022
+Directory is /user/home/kp19251/advanced-hpc-lbm
+Slurm job ID is 10089595
+This job runs on the following machines:
+compute333
+==done==
+Reynolds number:		9.755868911743E+00
+Elapsed Init time:			0.031736 (s)
+Elapsed Compute time:			128.325270 (s)
+Elapsed Collate time:			0.000000 (s)
+Elapsed Total time:			128.357006 (s)
+python check/check.py --ref-av-vels-file=check/128x128.av_vels.dat --ref-final-state-file=check/128x128.final_state.dat --av-vels-file=./av_vels.dat --final-state-file=./final_state.dat
+Total difference in av_vels : 1.960246664724E-01
+Biggest difference (at step 39997) : 1.045079631000E-05
+  1.318354066461E-02 vs. 1.319399146092E-02 = 0.079%
+
+Total difference in final_state : 2.918561725960E-01
+Biggest difference (at coord (56,62)) : -1.843517072000E-05
+  3.333133459091E-02 vs. 3.331289942019E-02 = -0.055%
+
+Both tests passed!
+advixe: Error: The Intel(R) Advisor license file was not found or has expired. Make sure that your license file is in the correct location and readable. Consider setting the license file location with the INTEL_LICENSE_FILE environment variable.
+advixe: Error: The Intel(R) Advisor license file was not found or has expired. Make sure that your license file is in the correct location and readable. Consider setting the license file location with the INTEL_LICENSE_FILE environment variable.
