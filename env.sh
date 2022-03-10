@@ -3,3 +3,4 @@
 export OMP_NUM_THREADS=16
 export OMP_PROC_BINDS=close
 export OMP_PLACES=cores
+module load languages/intel/2020-u4

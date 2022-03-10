@@ -7,7 +7,7 @@
 #SBATCH --partition veryshort
 #SBATCH --reservation=COSC026662
 #SBATCH --account=COSC026662
-#SBATCH --output d2q9-bgkgcc.out
+#SBATCH --output d2q9-bgk.out
 
 echo Running on host `hostname`
 echo Time is `date`
@@ -17,13 +17,13 @@ echo This job runs on the following machines:
 echo `echo $SLURM_JOB_NODELIST | uniq`
 
 #! Run the executable
-# ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-./d2q9-bgk input_256x256.params obstacles_256x256.dat
-# ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
-make check
+./d2q9-bgk input_128x128.params obstacles_128x128.dat
+#./d2q9-bgk input_256x256.params obstacles_256x256.dat
+#./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
 #advixe-cl -collect dependencies -mark-up-list=13 -project-dir /user/home/kp19251/advanced-hpc-lbm -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-#advixe-cl --collect=survey -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-#advixe-cl -collect tripcounts -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
+#advixe-cl --collect=survey --search-dir all:=. -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
+#advixe-cl -collect tripcounts --search-dir all:=. -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
+#advixe-cl -collect roofline --search-dir all:=. -- ./d2q9-bgk input_128x128.params obstacles_128x128.dat
 #./d2q9-bgk input_128x256.params obstacles_128x256.dat
 #./d2q9-bgk input_256x256.params obstacles_256x256.dat
 #./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat

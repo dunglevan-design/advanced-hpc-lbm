@@ -349,16 +349,10 @@ float timestep(const t_param params, t_speed *restrict cells, t_speed *restrict 
         tmp_cells->speeds7[ii + jj * params.nx] = cells->speeds7[x_e + y_n * params.nx] + params.omega * (d_equ[7] - cells->speeds7[x_e + y_n * params.nx]);
         tmp_cells->speeds8[ii + jj * params.nx] = cells->speeds8[x_w + y_n * params.nx] + params.omega * (d_equ[8] - cells->speeds8[x_w + y_n * params.nx]);
 
-        local_density = tmp_cells->speeds0[ii + jj * params.nx] + tmp_cells->speeds1[ii + jj * params.nx] + tmp_cells->speeds2[ii + jj * params.nx] + tmp_cells->speeds3[ii + jj * params.nx] + tmp_cells->speeds4[ii + jj * params.nx] + tmp_cells->speeds5[ii + jj * params.nx] + tmp_cells->speeds6[ii + jj * params.nx] + tmp_cells->speeds7[ii + jj * params.nx] + tmp_cells->speeds8[ii + jj * params.nx];
         /********************************** */
         /* AVVELOCITY: */
 
-        /* x-component of velocity */
-        u_x = (tmp_cells->speeds1[ii + jj * params.nx] + tmp_cells->speeds5[ii + jj * params.nx] + tmp_cells->speeds8[ii + jj * params.nx] - (tmp_cells->speeds3[ii + jj * params.nx] + tmp_cells->speeds6[ii + jj * params.nx] + tmp_cells->speeds7[ii + jj * params.nx])) / local_density;
-        /* compute y velocity component */
-        u_y = (tmp_cells->speeds2[ii + jj * params.nx] + tmp_cells->speeds5[ii + jj * params.nx] + tmp_cells->speeds6[ii + jj * params.nx] - (tmp_cells->speeds4[ii + jj * params.nx] + tmp_cells->speeds7[ii + jj * params.nx] + tmp_cells->speeds8[ii + jj * params.nx])) / local_density;
-        /* accumulate the norm of x- and y- velocity components */
-        u_sq = u_x * u_x + u_y * u_y;
+        
         tot_u += sqrtf(u_sq);
         /* increase counter of inspected cells */
         ++tot_cells;
